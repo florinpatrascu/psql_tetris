@@ -1,7 +1,7 @@
 defmodule PsqlTetris.MixProject do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.1.1"
   @source_url "https://github.com/florinpatrascu/psql_tetris"
   @description "Mix formatter plugin that reorders columns in Ecto migrations for optimal PostgreSQL column alignment"
 

@@ -6,7 +6,7 @@
 [![HexDocs](https://img.shields.io/badge/hex-docs-blue.svg)](https://hexdocs.pm/psql_tetris)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A Mix formatter plugin that reorders columns in **Ecto migrations** so PostgreSQL ends up with a tighter on-disk row layout: less padding, fewer wasted bytes per row, smaller tables on big writes.
+A Mix formatter plugin that reorders columns in **Ecto migrations** for optimal PostgreSQL column alignment: less padding between values, fewer wasted bytes per row, smaller tables on big writes.
 
 Full docs: <https://hexdocs.pm/psql_tetris>.
 
@@ -42,7 +42,7 @@ Add `:psql_tetris` to `deps/0` in your project's `mix.exs`:
 ```elixir
 def deps do
   [
-    {:psql_tetris, "~> 0.1.0", only: [:dev], runtime: false}
+    {:psql_tetris, "~> 0.1.1", only: [:dev], runtime: false}
   ]
 end
 ```

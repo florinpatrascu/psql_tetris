@@ -2,7 +2,7 @@ defmodule PsqlTetris.Formatter do
   @moduledoc """
   Mix formatter plugin.
 
-  Add this module to the `:plugins` list of your project's `.formatter.exs` and `mix format` will quietly reorder columns in new (and existing) Ecto migrations for a tighter PostgreSQL row layout:
+  Add this module to the `:plugins` list of your project's `.formatter.exs` and `mix format` will quietly reorder columns in new (and existing) Ecto migrations for optimal PostgreSQL column alignment:
 
       # .formatter.exs
       [
