@@ -24,7 +24,7 @@ can waste several bytes per row on padding. The same columns reordered largest-a
 
 ## Only runs on PostgreSQL projects
 
-The reordering algorithm is grounded in PostgreSQL row storage (column alignment, varlena tail). It is **not** valid for MySQL/MariaDB (different row layout, no per-column alignment to optimize), SQLite (dynamic typing, no fixed column slots), or MSSQL.
+The reordering algorithm follows from how PostgreSQL aligns column values on disk (per-column alignment classes, the varlena tail). It does **not** apply to MySQL/MariaDB (no per-column alignment to optimize), SQLite (dynamic typing, no fixed column slots), or MSSQL.
 
 `PsqlTetris.Formatter` therefore gates itself on the presence of the `Postgrex` driver module in the project. `Postgrex` is the canonical Postgres driver for Elixir and is only declared as a dependency, so its presence is a reliable signal. Note that checking for `Ecto.Adapters.Postgres` alone would be insufficient: `ecto_sql` ships the adapter modules for several databases bundled together.
 
@@ -42,7 +42,7 @@ Add `:psql_tetris` to `deps/0` in your project's `mix.exs`:
 ```elixir
 def deps do
   [
-    {:psql_tetris, "~> 0.1.1", only: [:dev], runtime: false}
+    {:psql_tetris, "~> 0.1.2", only: [:dev], runtime: false}
   ]
 end
 ```
@@ -142,7 +142,7 @@ The opt-out-via-comment idea is borrowed from Angelika Cathor's [Markdown code-b
 
 `PsqlTetris` uses a two-layer strategy so it stays accurate without duplicating logic from Ecto:
 
-1. **Delegate to Ecto when available.** If `Ecto.Adapters.Postgres.Connection` is loaded (always true inside a Phoenix/Ecto project), we ask Ecto itself to render the PG column type via `column_type/2`, then look up the resulting PG type name (`bigint`, `timestamp`, `uuid`, ...) in the PostgreSQL catalog alignment table. This keeps us in lockstep with the exact Ecto version the host project uses: no mapping drift.
+1. **Delegate to Ecto when available.** If `Ecto.Adapters.Postgres.Connection` is loaded (always true inside a Phoenix/Ecto project), we ask Ecto itself to render the PG column type via `column_type/2`, then look up the resulting PG type name (`bigint`, `timestamp`, `uuid`, ...) in the PostgreSQL catalog alignment table. This way we always match whatever Ecto version your project happens to use, with no duplicated mapping for us to keep in sync.
 2. **Static fallback** when Ecto isn't loaded (running stand-alone). Mirrors Ecto's documented mapping for the common types.
 
 Either path returns a rank 1-5:

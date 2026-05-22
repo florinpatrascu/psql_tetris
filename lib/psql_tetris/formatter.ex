@@ -17,9 +17,9 @@ defmodule PsqlTetris.Formatter do
 
   ## Safety: only runs on PostgreSQL projects
 
-  The whole reordering argument is grounded in how PostgreSQL stores rows on disk (column alignment, the varlena tail). It does not apply to MySQL or MariaDB (different row layout, no per-column alignment to optimize), SQLite (dynamic typing, no fixed column slots), or MSSQL. Running this formatter against a non-Postgres project would shuffle columns for no benefit, so we make sure it doesn't.
+  The reordering argument follows from how PostgreSQL aligns column values on disk (per-column alignment classes, the varlena tail). It does not apply to MySQL or MariaDB (no per-column alignment to optimize), SQLite (dynamic typing, no fixed column slots), or MSSQL. Running this formatter against a non-Postgres project would shuffle columns for no benefit, so by default it won't.
 
-  Detection is done at format time by checking whether the `Postgrex` driver module is loaded in the host VM. `Postgrex` is the canonical Postgres driver for Elixir and only shows up as a dep on actual Postgres projects, so its presence is a reliable signal. Checking for `Ecto.Adapters.Postgres` alone would not be enough, because `ecto_sql` bundles adapter modules for several databases together.
+  Detection is done at format time by checking whether the `Postgrex` driver module is loaded in the project. `Postgrex` is the canonical Postgres driver for Elixir and only shows up as a dep on actual Postgres projects, so its presence is a reliable signal. Checking for `Ecto.Adapters.Postgres` alone would not be enough, because `ecto_sql` bundles adapter modules for several databases together.
 
   If you have an unusual setup (e.g. a tooling-only project that doesn't ship Postgrex), you can force the plugin on or off explicitly:
 

@@ -1,7 +1,7 @@
 defmodule PsqlTetris.MixProject do
   use Mix.Project
 
-  @version "0.1.1"
+  @version "0.1.2"
   @source_url "https://github.com/florinpatrascu/psql_tetris"
   @description "Mix formatter plugin that reorders columns in Ecto migrations for optimal PostgreSQL column alignment"
 
@@ -27,11 +27,11 @@ defmodule PsqlTetris.MixProject do
 
   defp deps do
     # No runtime deps: when the formatter runs inside a Phoenix/Ecto project,
-    # `Ecto.Adapters.Postgres.Connection` is already in the host VM and we
-    # detect it at call time via `Code.ensure_loaded?/1`. Declaring it as a
-    # dep here would force Hex resolution in every consumer without buying
-    # any guarantee: the static fallback in `PsqlTetris.Types` covers the
-    # case where it isn't present.
+    # `Ecto.Adapters.Postgres.Connection` is already loaded by the host
+    # project, and we detect it at call time via `Code.ensure_loaded?/1`.
+    # Declaring it as a dep here would force Hex resolution in every
+    # consumer without buying any guarantee: the static fallback in
+    # `PsqlTetris.Types` covers the case where it isn't present.
     [
       {:ex_doc, "~> 0.34", only: :dev, runtime: false}
     ]

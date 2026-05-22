@@ -6,7 +6,7 @@ defmodule PsqlTetris.Types do
 
   Two layers, tried in order:
 
-    1. **Ecto translation** (preferred). If `Ecto.Adapters.Postgres.Connection` is loaded (the usual case when the formatter is running inside a Phoenix/Ecto project), we ask Ecto itself to render the PostgreSQL column type for the given migration type, then map the resulting PG type name to its catalog alignment class. This keeps us in lockstep with whatever Ecto version the host project uses, with no duplicated mapping that could rot over time.
+    1. **Ecto translation** (preferred). If `Ecto.Adapters.Postgres.Connection` is loaded (the usual case when the formatter is running inside a Phoenix/Ecto project), we ask Ecto itself to render the PostgreSQL column type for the given migration type, then map the resulting PG type name to its catalog alignment class. This way we always match whatever Ecto version your project happens to use, with no duplicated mapping for us to keep in sync.
 
     2. **Static fallback**. If Ecto is not loaded (running stand-alone, or the project simply doesn't depend on `ecto_sql`), we fall back to a built-in table that mirrors Ecto's documented mapping. Same logical result for common types: think of it as an intentional safety net for projects we can't introspect.
 

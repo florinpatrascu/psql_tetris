@@ -4,6 +4,10 @@ All notable changes to `psql_tetris` are documented in this file. Format
 loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [SemVer](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-05-22
+
+Fixing docs.
+
 ## [0.1.1] - 2026-05-22
 
 ### Changed
@@ -44,5 +48,6 @@ Initial release.
   * `migration_paths` (glob list, default `["priv/repo/migrations/", "/migrations/"]`).
   * `enabled` (`true | false`, default: auto-detect via `Postgrex`).
 
+[0.1.2]: https://github.com/florinpatrascu/psql_tetris/releases/tag/v0.1.2
 [0.1.1]: https://github.com/florinpatrascu/psql_tetris/releases/tag/v0.1.1
 [0.1.0]: https://github.com/florinpatrascu/psql_tetris/releases/tag/v0.1.0
